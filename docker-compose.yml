@@ -1,0 +1,46 @@
+version: "3.7"
+
+networks:
+    wiotp-edge-net:
+        ipam:
+            driver: default
+            config:
+                - subnet: "172.25.5.0/24"
+
+services:
+    edge-connector:
+        image: rdasgupta/connector:1.0
+        container_name: edge-connector
+        networks:
+            wiotp-edge-net:
+                ipv4_address: 172.25.5.11
+        cap_add:
+        - SYS_ADMIN
+        ports:
+        - "8883:8883"
+        - "1883:1883"
+        volumes:
+        - "/etc/wiotp-edge:/etc/wiotp-edge"
+        - "/var/wiotp-edge:/var/wiotp-edge"
+        environment:
+        - WIOTP_IDENTITY_ORGID=${WIOTP_IDENTITY_ORGID}
+        - WIOTP_IDENTITY_TYPEID=${WIOTP_IDENTITY_TYPEID}
+        - WIOTP_IDENTITY_DEVICEID=${WIOTP_IDENTITY_DEVICEID}
+        - WIOTP_AUTH_TOKEN=${WIOTP_AUTH_TOKEN}
+        restart: unless-stopped
+
+    edge-mqttbroker:
+        image: eclipse-mosquitto:1.6.3
+        container_name: edge-mqttbroker
+        networks:
+            wiotp-edge-net:
+                ipv4_address: 172.25.5.10
+        volumes:
+        - "/var/wiotp-edge:/var/wiotp-edge"
+        - "/etc/wiotp-edge/broker/config:/mosquitto/config"
+        - "/var/wiotp-edge/persist:/mosquitto/data"
+        restart: unless-stopped
+        depends_on:
+        - edge-connector
+
+
