@@ -2,6 +2,7 @@ version: "3.7"
 
 networks:
     wiotp-edge-net:
+        name: wiotp-edge-net
         ipam:
             driver: default
             config:
