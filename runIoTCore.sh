@@ -49,7 +49,7 @@ cd /tmp/edge
 curl -fsSL https://github.com/rdasgupt/edge-node/blob/master/docker-compose.yml -o docker-compose.yml
 docker ps -a | grep edge-mqttbroker > /dev/null 2>&1
 if [ $? -eq 1 ]; then
-    WIOTP_IDENTITY_ORGID=${ORG} WIOTP_IDENTITY_TYPEID=${TYPEID} WIOTP_IDENTITY_DEVICEID=${GWID} WIOTP_AUTH_TOKEN=${TOKEN} sudo docker-compose -f /tmp/edge/docker-compose.yml
+    WIOTP_IDENTITY_ORGID=${ORG} WIOTP_IDENTITY_TYPEID=${TYPEID} WIOTP_IDENTITY_DEVICEID=${GWID} WIOTP_AUTH_TOKEN=${TOKEN} sudo docker-compose -f /tmp/edge/docker-compose.yml up -d
 fi
 
 
