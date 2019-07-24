@@ -1,32 +1,29 @@
 # edge-node
+
 Create edge node
 
-Prerequisite:
-- docker-compose
+## Dependencies
+- git
 - curl
 
+## Run IoT Core containerrs
 
-## Get docker-compose file
+Use one of the following options to run IoT Core containers
 
-Use one of the following steps to download docker-compose.yml file
+### Clone the repository and run scripts
 
-Use git command to clone this github project or use curl command to download docker-compose.yml file:
+Use git command to clone this github project and execute `runIoTCore.sh` script.
 ```
 $ git clone https://github.com/rdasgupt/edge-node
+$ cd edge-node
+$ sudo ./runIoTCore.sh <orgid> <typeid> <deviceid> <token>
 ```
 
-OR
+### Use curl command to download scrript and run script
 
-Use curl command to get docker-compose file
+Run the following command to create container.
 ```
-$ curl -o docker-compose.yml https://raw.githubusercontent.com/rdasgupt/edge-node/master/docker-compose.yml
-```
-
-## Run containers
-
-Run the following command to create container:
-```
-$ WIOTP_IDENTITY_ORGID=<orgid> WIOTP_IDENTITY_TYPEID=<gwtype> WIOTP_IDENTITY_DEVICEID=<gwid> WIOTP_AUTH_TOKEN=<gwtoken> docker-compose up -d
+$ curl -fsSL https://raw.githubusercontent.com/rdasgupt/edge-node/master/runIoTCore.sh | bash -s <orgrid> <typeiid> <deviceid> <token>
 ```
 
 
