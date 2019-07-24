@@ -1,13 +1,15 @@
-#!/bin/sh
+#!/bin/bash
 
 ORG=$1
 TYPEID=$2
 GWID=$3
-TOKEN=$3
+TOKEN=$4
 export ORG
 export TYPEID
 export GWID
 export TOKEN
+
+set -x
 
 # Check and install docker
 docker -v > /dev/null 2>&1
